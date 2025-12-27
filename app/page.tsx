@@ -1,17 +1,42 @@
-import Image from "next/image"
-import { Github, Linkedin, FileText, Monitor, ExternalLink } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import FloatingNav from "@/components/floating-nav"
-import Footer from "@/components/footer"
-import Link from "next/link"
-import { getFeaturedProjects } from "@/lib/sanity-queries"
-import { ProjectDisplay } from "@/types/project"
+import Image from "next/image";
+import {
+  Github,
+  Linkedin,
+  FileText,
+  Monitor,
+  ExternalLink,
+  MapPin,
+  Mail,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import FloatingNav from "@/components/floating-nav";
+import Footer from "@/components/footer";
+import Link from "next/link";
+import { getFeaturedProjects } from "@/lib/sanity-queries";
+import { getAboutData, getSocialLinkInfo } from "@/lib/about-queries";
+import { ProjectDisplay } from "@/types/project";
+import PortableTextRenderer from "@/components/portable-text";
+
+// Helper function to get icon component based on platform
+function getIconComponent(iconName: string) {
+  const icons = {
+    github: Github,
+    linkedin: Linkedin,
+    twitter: Github, // Using Github as fallback for now
+    instagram: Github, // Using Github as fallback for now
+    'external-link': ExternalLink,
+  };
+  return icons[iconName as keyof typeof icons] || ExternalLink;
+}
 
 export default async function PortfolioPage() {
-  // Fetch featured projects on the server
-  const featuredProjects = await getFeaturedProjects()
+  // Fetch featured projects and about data on the server
+  const [featuredProjects, aboutData] = await Promise.all([
+    getFeaturedProjects(),
+    getAboutData()
+  ]);
 
   return (
     <>
@@ -27,42 +52,80 @@ export default async function PortfolioPage() {
                 <div className="flex flex-col items-center text-center">
                   <div className="relative mb-6 h-48 w-48 overflow-hidden rounded-full">
                     <Image
-                      src="/images/image.png"
-                      alt="Profile"
+                      src={aboutData?.profileImageUrl || "/images/image.png"}
+                      alt={aboutData?.currentRole || "Profile"}
                       fill
                       className="object-cover"
                       crossOrigin="anonymous"
                     />
                   </div>
 
-                  <h1 className="text-3xl font-bold mb-1">Aung Moe Myint Thu</h1>
-                  <p className="text-muted-foreground mb-4">Full-Stack Web Developer</p>
-
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                    Based in Hmawbi, Yangon, Myanmar. I develop full-stack web applications with a focus on clean
-                    architecture, usability, and performance.
+                  <h1 className="text-3xl font-bold mb-1">
+                    {aboutData?.title || "Your Name"}
+                  </h1>
+                  <p className="text-muted-foreground mb-4">
+                    {aboutData?.currentRole || "Full-Stack Web Developer"}
                   </p>
 
-                  <Button className="w-full mb-6">CONTACT ME</Button>
+                  {aboutData?.location && (
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
+                      <MapPin className="h-4 w-4" />
+                      <span>{aboutData.location}</span>
+                    </div>
+                  )}
 
-                  <div className="flex items-center gap-4 text-muted-foreground">
-                    <a
-                      href="https://github.com/aungmoe32"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:text-foreground transition-colors"
-                    >
-                      <Github className="h-5 w-5" />
-                    </a>
-                    <a
-                      href="https://linkedin.com/in/aung-moe-myint-thu-679884258"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:text-foreground transition-colors"
-                    >
-                      <Linkedin className="h-5 w-5" />
-                    </a>
-                  </div>
+                  {aboutData?.email ? (
+                    <Button className="w-full mb-6" asChild>
+                      <a href={`mailto:${aboutData.email}`}>
+                        <Mail className="mr-2 h-4 w-4" />
+                        CONTACT ME
+                      </a>
+                    </Button>
+                  ) : (
+                    <Button className="w-full mb-6">CONTACT ME</Button>
+                  )}
+
+                  {/* Social Links */}
+                  {aboutData?.socialLinks && aboutData.socialLinks.length > 0 ? (
+                    <div className="flex items-center gap-4 text-muted-foreground">
+                      {aboutData.socialLinks.map((link, index) => {
+                        const linkInfo = getSocialLinkInfo(link)
+                        const IconComponent = getIconComponent(linkInfo.icon)
+                        
+                        return (
+                          <a
+                            key={index}
+                            href={link.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:text-foreground transition-colors"
+                            title={linkInfo.name}
+                          >
+                            <IconComponent className="h-5 w-5" />
+                          </a>
+                        )
+                      })}
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-4 text-muted-foreground">
+                      <a
+                        href="https://github.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-foreground transition-colors"
+                      >
+                        <Github className="h-5 w-5" />
+                      </a>
+                      <a
+                        href="https://linkedin.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-foreground transition-colors"
+                      >
+                        <Linkedin className="h-5 w-5" />
+                      </a>
+                    </div>
+                  )}
                 </div>
               </Card>
             </aside>
@@ -78,15 +141,51 @@ export default async function PortfolioPage() {
                   </Button>
                 </div>
                 <div className="prose prose-neutral dark:prose-invert max-w-none">
-                  <p className="text-lg leading-relaxed text-muted-foreground">
-                    Highly motivated full-stack web developer with strong front-end and back-end expertise. Skilled in
-                    building responsive and dynamic web applications through personal and academic projects. Proficient
-                    in database management and experienced with Git for version control. Committed to continuous
-                    learning and excited to contribute innovative solutions to real-world challenges.
-                  </p>
-                  <p className="text-lg leading-relaxed text-muted-foreground mt-4">
-                    Currently expanding my knowledge in software architecture and design patterns.
-                  </p>
+                  {aboutData?.description ? (
+                    <PortableTextRenderer 
+                      content={aboutData.description} 
+                      className="text-lg leading-relaxed"
+                    />
+                  ) : (
+                    <>
+                      <p className="text-lg leading-relaxed text-muted-foreground">
+                        Highly motivated full-stack web developer with strong
+                        front-end and back-end expertise. Skilled in building
+                        responsive and dynamic web applications through personal and
+                        academic projects. Proficient in database management and
+                        experienced with Git for version control. Committed to
+                        continuous learning and excited to contribute innovative
+                        solutions to real-world challenges.
+                      </p>
+                      <p className="text-lg leading-relaxed text-muted-foreground mt-4">
+                        Currently expanding my knowledge in software architecture
+                        and design patterns.
+                      </p>
+                    </>
+                  )}
+                  
+                  {/* Skills Display */}
+                  {aboutData?.skills && aboutData.skills.length > 0 && (
+                    <div className="mt-6">
+                      <h3 className="text-lg font-semibold mb-3">Key Skills</h3>
+                      <div className="flex flex-wrap gap-2">
+                        {aboutData.skills.map((skill) => (
+                          <Badge key={skill} variant="secondary" className="text-sm">
+                            {skill}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Experience */}
+                  {aboutData?.experience && (
+                    <div className="mt-6">
+                      <p className="text-muted-foreground">
+                        <strong>{aboutData.experience}+ years</strong> of experience in software development
+                      </p>
+                    </div>
+                  )}
                 </div>
               </section>
 
@@ -105,7 +204,9 @@ export default async function PortfolioPage() {
                     ))
                   ) : (
                     <div className="col-span-2 text-center py-8">
-                      <p className="text-muted-foreground">No featured projects found.</p>
+                      <p className="text-muted-foreground">
+                        No featured projects found.
+                      </p>
                     </div>
                   )}
                 </div>
@@ -118,11 +219,11 @@ export default async function PortfolioPage() {
       {/* Footer Component */}
       <Footer />
     </>
-  )
+  );
 }
 
 interface ProjectCardProps {
-  project: ProjectDisplay
+  project: ProjectDisplay;
 }
 
 function ProjectCard({ project }: ProjectCardProps) {
@@ -130,7 +231,12 @@ function ProjectCard({ project }: ProjectCardProps) {
     <Card className="overflow-hidden hover:shadow-lg transition-shadow">
       {/* Project Image */}
       <div className="relative h-48 w-full bg-muted">
-        <Image src={project.imageUrl || "/placeholder.svg"} alt={project.name} fill className="object-cover" />
+        <Image
+          src={project.imageUrl || "/placeholder.svg"}
+          alt={project.name}
+          fill
+          className="object-cover"
+        />
       </div>
 
       {/* Project Content */}
@@ -140,8 +246,12 @@ function ProjectCard({ project }: ProjectCardProps) {
           {project.category}
         </Badge>
 
-        <h3 className="text-xl font-semibold mb-3 leading-snug">{project.name}</h3>
-        <p className="text-muted-foreground text-sm leading-relaxed mb-4">{project.description}</p>
+        <h3 className="text-xl font-semibold mb-3 leading-snug">
+          {project.name}
+        </h3>
+        <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+          {project.description}
+        </p>
 
         {/* Technologies */}
         <div className="flex flex-wrap gap-2 mb-4">
@@ -190,5 +300,5 @@ function ProjectCard({ project }: ProjectCardProps) {
         </div>
       </div>
     </Card>
-  )
+  );
 }
