@@ -6,90 +6,13 @@ import { Badge } from "@/components/ui/badge"
 import FloatingNav from "@/components/floating-nav"
 import Footer from "@/components/footer"
 import Link from "next/link"
+import { getFeaturedProjects } from "@/lib/sanity-queries"
+import { ProjectDisplay } from "@/types/project"
 
-const projects = [
-  {
-    id: 1,
-    name: "ManageX - Modern Content Management System API",
-    description:
-      "A powerful, feature-rich RESTful API for content management systems built with Laravel, providing comprehensive tools for managing posts, comments, users, media files, and more.",
-    image: "/cms-dashboard.png",
-    techs: ["Laravel", "RESTful API", "MySQL", "PHP"],
-    category: "Backend",
-    links: {
-      github: "#",
-      demo: "#",
-      live: "#",
-    },
-  },
-  {
-    id: 2,
-    name: "MyanTech E-Commerce & Logistics Management System",
-    description:
-      "A comprehensive e-commerce and logistics management platform that handles the complete lifecycle of retail operations, from customer orders through delivery management.",
-    image: "/ecommerce-logistics-dashboard.jpg",
-    techs: ["React", "Laravel", "PostgreSQL", "TailwindCSS"],
-    category: "Full-Stack",
-    links: {
-      github: "#",
-      demo: "#",
-      live: "#",
-    },
-  },
-  {
-    id: 3,
-    name: "Passport OAuth Server",
-    description:
-      "An OAuth 2.0 authentication server built with Laravel Passport and Laravel Filament, providing secure login and token management.",
-    image: "/oauth-authentication-server-interface.jpg",
-    techs: ["Laravel", "OAuth 2.0", "Laravel Passport", "Filament"],
-    category: "Backend",
-    links: {
-      github: "#",
-      demo: "#",
-    },
-  },
-  {
-    id: 4,
-    name: "TALL Stack Chat App",
-    description:
-      "A real-time chat application built with the TALL stack that enables instant messaging with comprehensive conversation management features.",
-    image: "/realtime-chat-application-interface.jpg",
-    techs: ["TailwindCSS", "Alpine.js", "Laravel", "Livewire"],
-    category: "Full-Stack",
-    links: {
-      github: "#",
-    },
-  },
-  {
-    id: 5,
-    name: "LMS (Learning Management System)",
-    description:
-      "A comprehensive system for online learning and course management with role-based permissions for students, instructors, and administrators.",
-    image: "/lms-dashboard.png",
-    techs: ["Laravel", "Vue.js", "MySQL", "TailwindCSS"],
-    category: "Full-Stack",
-    links: {
-      github: "#",
-      demo: "#",
-    },
-  },
-  {
-    id: 6,
-    name: "PAM (Tiny PHP MVC Framework)",
-    description:
-      "A custom lightweight PHP MVC framework inspired by Laravel for clean architecture web development with routing and ORM capabilities.",
-    image: "/php-framework-code-structure.jpg",
-    techs: ["PHP", "MVC", "Composer"],
-    category: "Backend",
-    links: {
-      github: "#",
-      demo: "#",
-    },
-  },
-]
+export default async function PortfolioPage() {
+  // Fetch featured projects on the server
+  const featuredProjects = await getFeaturedProjects()
 
-export default function PortfolioPage() {
   return (
     <>
       <FloatingNav />
@@ -176,9 +99,15 @@ export default function PortfolioPage() {
                   </Link>
                 </div>
                 <div className="grid gap-6 md:grid-cols-2">
-                  {projects.slice(0, 6).map((project) => (
-                    <ProjectCard key={project.id} project={project} />
-                  ))}
+                  {featuredProjects.length > 0 ? (
+                    featuredProjects.map((project) => (
+                      <ProjectCard key={project._id} project={project} />
+                    ))
+                  ) : (
+                    <div className="col-span-2 text-center py-8">
+                      <p className="text-muted-foreground">No featured projects found.</p>
+                    </div>
+                  )}
                 </div>
               </section>
             </main>
@@ -193,19 +122,7 @@ export default function PortfolioPage() {
 }
 
 interface ProjectCardProps {
-  project: {
-    id: number
-    name: string
-    description: string
-    image: string
-    techs: string[]
-    category: string
-    links: {
-      github?: string
-      demo?: string
-      live?: string
-    }
-  }
+  project: ProjectDisplay
 }
 
 function ProjectCard({ project }: ProjectCardProps) {
@@ -213,7 +130,7 @@ function ProjectCard({ project }: ProjectCardProps) {
     <Card className="overflow-hidden hover:shadow-lg transition-shadow">
       {/* Project Image */}
       <div className="relative h-48 w-full bg-muted">
-        <Image src={project.image || "/placeholder.svg"} alt={project.name} fill className="object-cover" />
+        <Image src={project.imageUrl || "/placeholder.svg"} alt={project.name} fill className="object-cover" />
       </div>
 
       {/* Project Content */}
@@ -237,27 +154,33 @@ function ProjectCard({ project }: ProjectCardProps) {
 
         {/* Project Links */}
         <div className="flex items-center gap-3 text-sm pt-4 border-t border-border">
-          {project.links.github && (
+          {project.githubUrl && (
             <a
-              href={project.links.github}
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
             >
               <Github className="h-4 w-4" />
               GitHub
             </a>
           )}
-          {project.links.demo && (
+          {project.demoUrl && (
             <a
-              href={project.links.demo}
+              href={project.demoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
             >
               <Monitor className="h-4 w-4" />
               Demo
             </a>
           )}
-          {project.links.live && (
+          {project.liveUrl && (
             <a
-              href={project.links.live}
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
             >
               <ExternalLink className="h-4 w-4" />
