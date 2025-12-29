@@ -1,17 +1,24 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useTheme } from "next-themes"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { Moon, Sun } from "lucide-react"
+import { Moon, Sun, Monitor } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 export default function FloatingNav() {
   const [activeSection, setActiveSection] = useState("about")
-  const [isDark, setIsDark] = useState(false)
+  const [mounted, setMounted] = useState(false)
+  const { theme, setTheme } = useTheme()
   const pathname = usePathname()
   const isProjectsPage = pathname === "/projects"
+
+  // Prevent hydration mismatch
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     if (isProjectsPage) return
@@ -50,8 +57,47 @@ export default function FloatingNav() {
   }
 
   const toggleTheme = () => {
-    setIsDark(!isDark)
-    document.documentElement.classList.toggle("dark")
+    if (!mounted) return
+    
+    if (theme === "light") {
+      setTheme("dark")
+    } else if (theme === "dark") {
+      setTheme("system")
+    } else {
+      setTheme("light")
+    }
+  }
+
+  // Get the appropriate icon for current theme
+  const getThemeIcon = () => {
+    if (!mounted) return <Monitor className="h-4 w-4" />
+    
+    switch (theme) {
+      case "light":
+        return <Sun className="h-4 w-4" />
+      case "dark":
+        return <Moon className="h-4 w-4" />
+      case "system":
+        return <Monitor className="h-4 w-4" />
+      default:
+        return <Monitor className="h-4 w-4" />
+    }
+  }
+
+  // Get tooltip text
+  const getTooltipText = () => {
+    if (!mounted) return "Switch theme"
+    
+    switch (theme) {
+      case "light":
+        return "Switch to dark mode"
+      case "dark":
+        return "Switch to system mode"
+      case "system":
+        return "Switch to light mode"
+      default:
+        return "Switch theme"
+    }
   }
 
   return (
@@ -94,8 +140,15 @@ export default function FloatingNav() {
 
           <div className="ml-2 h-6 w-px bg-border" />
 
-          <Button variant="ghost" size="icon" className="rounded-full h-9 w-9" onClick={toggleTheme}>
-            {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="rounded-full h-9 w-9" 
+            onClick={toggleTheme}
+            title={getTooltipText()}
+            disabled={!mounted}
+          >
+            {getThemeIcon()}
           </Button>
         </div>
       </div>
