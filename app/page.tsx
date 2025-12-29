@@ -26,7 +26,7 @@ function getIconComponent(iconName: string) {
     linkedin: Linkedin,
     twitter: Github, // Using Github as fallback for now
     instagram: Github, // Using Github as fallback for now
-    'external-link': ExternalLink,
+    "external-link": ExternalLink,
   };
   return icons[iconName as keyof typeof icons] || ExternalLink;
 }
@@ -35,7 +35,7 @@ export default async function PortfolioPage() {
   // Fetch featured projects and about data on the server
   const [featuredProjects, aboutData] = await Promise.all([
     getFeaturedProjects(),
-    getAboutData()
+    getAboutData(),
   ]);
 
   return (
@@ -86,12 +86,13 @@ export default async function PortfolioPage() {
                   )}
 
                   {/* Social Links */}
-                  {aboutData?.socialLinks && aboutData.socialLinks.length > 0 ? (
+                  {aboutData?.socialLinks &&
+                  aboutData.socialLinks.length > 0 ? (
                     <div className="flex items-center gap-4 text-muted-foreground">
                       {aboutData.socialLinks.map((link, index) => {
-                        const linkInfo = getSocialLinkInfo(link)
-                        const IconComponent = getIconComponent(linkInfo.icon)
-                        
+                        const linkInfo = getSocialLinkInfo(link);
+                        const IconComponent = getIconComponent(linkInfo.icon);
+
                         return (
                           <a
                             key={index}
@@ -103,7 +104,7 @@ export default async function PortfolioPage() {
                           >
                             <IconComponent className="h-5 w-5" />
                           </a>
-                        )
+                        );
                       })}
                     </div>
                   ) : (
@@ -142,8 +143,8 @@ export default async function PortfolioPage() {
                 </div>
                 <div className="prose prose-neutral dark:prose-invert max-w-none">
                   {aboutData?.description ? (
-                    <PortableTextRenderer 
-                      content={aboutData.description} 
+                    <PortableTextRenderer
+                      content={aboutData.description}
                       className="text-lg leading-relaxed"
                     />
                   ) : (
@@ -151,26 +152,30 @@ export default async function PortfolioPage() {
                       <p className="text-lg leading-relaxed text-muted-foreground">
                         Highly motivated full-stack web developer with strong
                         front-end and back-end expertise. Skilled in building
-                        responsive and dynamic web applications through personal and
-                        academic projects. Proficient in database management and
-                        experienced with Git for version control. Committed to
-                        continuous learning and excited to contribute innovative
-                        solutions to real-world challenges.
+                        responsive and dynamic web applications through personal
+                        and academic projects. Proficient in database management
+                        and experienced with Git for version control. Committed
+                        to continuous learning and excited to contribute
+                        innovative solutions to real-world challenges.
                       </p>
                       <p className="text-lg leading-relaxed text-muted-foreground mt-4">
-                        Currently expanding my knowledge in software architecture
-                        and design patterns.
+                        Currently expanding my knowledge in software
+                        architecture and design patterns.
                       </p>
                     </>
                   )}
-                  
+
                   {/* Skills Display */}
                   {aboutData?.skills && aboutData.skills.length > 0 && (
                     <div className="mt-6">
                       <h3 className="text-lg font-semibold mb-3">Key Skills</h3>
                       <div className="flex flex-wrap gap-2">
                         {aboutData.skills.map((skill) => (
-                          <Badge key={skill} variant="secondary" className="text-sm">
+                          <Badge
+                            key={skill}
+                            variant="secondary"
+                            className="text-sm"
+                          >
                             {skill}
                           </Badge>
                         ))}
@@ -182,7 +187,8 @@ export default async function PortfolioPage() {
                   {aboutData?.experience && (
                     <div className="mt-6">
                       <p className="text-muted-foreground">
-                        <strong>{aboutData.experience}+ years</strong> of experience in software development
+                        <strong>{aboutData.experience}+ years</strong> of
+                        experience in software development
                       </p>
                     </div>
                   )}
@@ -230,7 +236,7 @@ function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Card className="overflow-hidden hover:shadow-lg transition-shadow">
       {/* Project Image */}
-      <div className="relative h-48 w-full bg-muted">
+      <div className="relative h-60 w-full bg-muted">
         <Image
           src={project.imageUrl || "/placeholder.svg"}
           alt={project.name}
@@ -240,7 +246,7 @@ function ProjectCard({ project }: ProjectCardProps) {
       </div>
 
       {/* Project Content */}
-      <div className="p-6">
+      <div className="px-6">
         {/* Category Badge */}
         <Badge variant="secondary" className="mb-3">
           {project.category}

@@ -93,7 +93,7 @@ export default function ProjectsFilter({
               </div>
 
               {/* Project Content */}
-              <div className="p-6">
+              <div className="px-6">
                 {/* Category Badge */}
                 <Badge variant="secondary" className="mb-3">
                   {project.category}
