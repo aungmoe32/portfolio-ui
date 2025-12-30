@@ -12,23 +12,6 @@ export const metadata: Metadata = {
   description:
     "Aung Moe Myint Thu's personal portfolio showcasing projects and skills.",
   generator: "Next.js",
-  icons: {
-    icon: [
-      {
-        url: "/images/image.png",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/images/image.png",
-        media: "(prefers-color-scheme: dark)",
-      },
-      {
-        url: "/icon.svg",
-        type: "image/svg+xml",
-      },
-    ],
-    apple: "/images/image.png",
-  },
 };
 
 export default function RootLayout({
