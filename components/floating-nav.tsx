@@ -24,7 +24,7 @@ export default function FloatingNav() {
     if (isProjectsPage) return
 
     const handleScroll = () => {
-      const sections = ["about", "education", "projects"]
+      const sections = ["about", "education", "projects", "certifications"]
       const current = sections.find((section) => {
         const element = document.getElementById(section)
         if (element) {
@@ -133,6 +133,17 @@ export default function FloatingNav() {
                   Projects
                 </Button>
               </Link>
+              <Button
+                variant="ghost"
+                size="sm"
+                className={cn(
+                  "rounded-full transition-colors",
+                  activeSection === "certifications" && "bg-accent text-accent-foreground",
+                )}
+                onClick={() => scrollToSection("certifications")}
+              >
+                Certifications
+              </Button>
             </>
           ) : (
             <>
