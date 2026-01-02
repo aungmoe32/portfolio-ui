@@ -1,7 +1,7 @@
 import { client } from "@/sanity/client";
 import { Project, ProjectDisplay } from "@/types/project";
 import imageUrlBuilder from "@sanity/image-url";
-
+const options = { next: { revalidate: 60 } };
 // Create an image URL builder
 const builder = imageUrlBuilder(client);
 
@@ -84,7 +84,7 @@ function getCategoryDisplayName(category: string): string {
 // Fetch all projects
 export async function getAllProjects(): Promise<ProjectDisplay[]> {
   try {
-    const projects: Project[] = await client.fetch(projectsQuery);
+    const projects: Project[] = await client.fetch(projectsQuery, {}, options);
     return projects.map(transformProject);
   } catch (error) {
     console.error("Error fetching projects:", error);
@@ -95,7 +95,11 @@ export async function getAllProjects(): Promise<ProjectDisplay[]> {
 // Fetch featured projects only
 export async function getFeaturedProjects(): Promise<ProjectDisplay[]> {
   try {
-    const projects: Project[] = await client.fetch(featuredProjectsQuery);
+    const projects: Project[] = await client.fetch(
+      featuredProjectsQuery,
+      {},
+      options
+    );
     return projects.map(transformProject);
   } catch (error) {
     console.error("Error fetching featured projects:", error);
@@ -125,7 +129,7 @@ export async function getProjectBySlug(
       createdAt
     }`;
 
-    const project: Project = await client.fetch(query, { slug });
+    const project: Project = await client.fetch(query, { slug }, options);
     return project ? transformProject(project) : null;
   } catch (error) {
     console.error("Error fetching project by slug:", error);
@@ -137,7 +141,7 @@ export async function getProjectBySlug(
 export async function getProjectCategories(): Promise<string[]> {
   try {
     const query = `*[_type == "project"].category`;
-    const categories: string[] = await client.fetch(query);
+    const categories: string[] = await client.fetch(query, {}, options);
     const uniqueCategories = Array.from(
       new Set(categories.map(getCategoryDisplayName))
     );
