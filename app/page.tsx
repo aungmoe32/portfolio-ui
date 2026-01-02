@@ -7,6 +7,7 @@ import {
   ExternalLink,
   MapPin,
   Mail,
+  GraduationCap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -193,6 +194,39 @@ export default async function PortfolioPage() {
                     </div>
                   )}
                 </div>
+              </section>
+
+              {/* Education Section */}
+              <section id="education">
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-3xl font-bold">Education</h2>
+                  <Button variant="ghost" size="icon">
+                    <GraduationCap className="h-5 w-5" />
+                  </Button>
+                </div>
+                <Card className="p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0">
+                      <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                        <GraduationCap className="h-6 w-6 text-primary" />
+                      </div>
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-semibold mb-2">
+                        Bachelor of Engineering in Information Technology
+                      </h3>
+                      <p className="text-muted-foreground mb-2">
+                        Technological University (Hmawbi)
+                      </p>
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <span>Expected Graduation: January 2028</span>
+                        <Badge variant="outline" className="text-xs">
+                          In Progress
+                        </Badge>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
               </section>
 
               {/* Featured Projects Section */}
