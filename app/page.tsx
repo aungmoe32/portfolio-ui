@@ -9,6 +9,9 @@ import {
   Mail,
   GraduationCap,
   Award,
+  Briefcase,
+  Calendar,
+  PlayCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -224,6 +227,98 @@ export default async function PortfolioPage() {
                         <Badge variant="outline" className="text-xs">
                           In Progress
                         </Badge>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              </section>
+
+              {/* Experience Section */}
+              <section id="experience">
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-3xl font-bold">Experience</h2>
+                  <Button variant="ghost" size="icon">
+                    <Briefcase className="h-5 w-5" />
+                  </Button>
+                </div>
+                <Card className="p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0">
+                      <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/20 rounded-full flex items-center justify-center">
+                        <Briefcase className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+                      </div>
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-start justify-between mb-2">
+                        <div>
+                          <h3 className="text-xl font-semibold">
+                            Code2Career Hackathon 2025
+                          </h3>
+                          <p className="text-muted-foreground">MJC – Yangon</p>
+                        </div>
+                        <div className="text-right">
+                          <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                            <Calendar className="h-3 w-3" />
+                            <span>Feb 2025</span>
+                          </div>
+                          <div className="flex flex-col gap-1">
+                            <a
+                              href="https://www.youtube.com/watch?v=yrzfl9UrwCo"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center gap-1 text-sm text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 transition-colors"
+                            >
+                              <PlayCircle className="h-3 w-3" />
+                              Demo Video
+                            </a>
+                            <a
+                              href="https://github.com/aungmoe32/myantech"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                            >
+                              <Github className="h-3 w-3" />
+                              GitHub Repo
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="mb-4">
+                        <p className="text-muted-foreground mb-3">
+                          Collaborated in a fast-paced team to build a logistics ERP web app supporting inventory, orders, deliveries, payments, and 4 user roles using Laravel REST APIs and React, delivering a user-friendly, multi-portal e-commerce system.
+                        </p>
+                      </div>
+
+                      <div className="space-y-2">
+                        <div className="flex items-start gap-2">
+                          <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                          <p className="text-sm">
+                            Implemented stateless, role-based access control for SPA frontend using Laravel Sanctum and Spatie Permissions, optimized security and scalability through a normalized database schema, ensuring role-restricted user actions
+                          </p>
+                        </div>
+                        <div className="flex items-start gap-2">
+                          <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                          <p className="text-sm">
+                            Implemented real-time communication and tracking features using Pusher WebSockets and Laravel Echo, delivering live chat, instant order status updates, and delivery tracking with push notifications to improve customer support
+                          </p>
+                        </div>
+                        <div className="flex items-start gap-2">
+                          <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                          <p className="text-sm">
+                            Improved API performance by queuing order status emails with Laravel Queue, reducing response time by ~70%
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-wrap gap-2 mt-4">
+                        <Badge variant="secondary">Laravel</Badge>
+                        <Badge variant="secondary">React</Badge>
+                        <Badge variant="secondary">REST APIs</Badge>
+                        <Badge variant="secondary">Laravel Sanctum</Badge>
+                        <Badge variant="secondary">Pusher WebSockets</Badge>
+                        <Badge variant="secondary">Laravel Queue</Badge>
+                        <Badge variant="secondary">Role-based Access</Badge>
                       </div>
                     </div>
                   </div>
