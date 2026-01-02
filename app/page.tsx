@@ -47,15 +47,15 @@ export default async function PortfolioPage() {
     <>
       <FloatingNav />
 
-      <div className="min-h-screen bg-background py-16 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-background py-12 sm:py-16 px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
-          <div className="grid gap-8 lg:grid-cols-[380px_1fr]">
+          <div className="grid gap-6 sm:gap-8 lg:grid-cols-[380px_1fr]">
             {/* Left Sidebar */}
-            <aside className="space-y-8">
+            <aside className="space-y-6 sm:space-y-8">
               {/* Profile Section */}
-              <Card className="overflow-hidden p-8">
+              <Card className="overflow-hidden p-6 sm:p-8">
                 <div className="flex flex-col items-center text-center">
-                  <div className="relative mb-6 h-48 w-48 overflow-hidden rounded-full">
+                  <div className="relative mb-4 sm:mb-6 h-32 w-32 sm:h-48 sm:w-48 overflow-hidden rounded-full">
                     <Image
                       src={aboutData?.profileImageUrl || "/images/image.png"}
                       alt={aboutData?.currentRole || "Profile"}
@@ -65,10 +65,10 @@ export default async function PortfolioPage() {
                     />
                   </div>
 
-                  <h1 className="text-3xl font-bold mb-1">
+                  <h1 className="text-2xl sm:text-3xl font-bold mb-1">
                     {aboutData?.title || "Your Name"}
                   </h1>
-                  <p className="text-muted-foreground mb-4">
+                  <p className="text-muted-foreground mb-4 text-sm sm:text-base">
                     {aboutData?.currentRole || "Full-Stack Web Developer"}
                   </p>
 
@@ -137,11 +137,11 @@ export default async function PortfolioPage() {
             </aside>
 
             {/* Main Content */}
-            <main className="space-y-12">
+            <main className="space-y-8 sm:space-y-12">
               {/* About Section */}
               <section id="about">
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-3xl font-bold">About Me</h2>
+                <div className="flex items-center justify-between mb-4 sm:mb-6">
+                  <h2 className="text-2xl sm:text-3xl font-bold">About Me</h2>
                   <Button variant="ghost" size="icon">
                     <FileText className="h-5 w-5" />
                   </Button>
@@ -202,29 +202,29 @@ export default async function PortfolioPage() {
 
               {/* Education Section */}
               <section id="education">
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-3xl font-bold">Education</h2>
+                <div className="flex items-center justify-between mb-4 sm:mb-6">
+                  <h2 className="text-2xl sm:text-3xl font-bold">Education</h2>
                   <Button variant="ghost" size="icon">
                     <GraduationCap className="h-5 w-5" />
                   </Button>
                 </div>
-                <Card className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0">
+                <Card className="p-4 sm:p-6">
+                  <div className="flex flex-col sm:flex-row items-start gap-4">
+                    <div className="flex-shrink-0 self-center sm:self-start">
                       <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
                         <GraduationCap className="h-6 w-6 text-primary" />
                       </div>
                     </div>
-                    <div className="flex-1">
-                      <h3 className="text-xl font-semibold mb-2">
+                    <div className="flex-1 text-center sm:text-left">
+                      <h3 className="text-lg sm:text-xl font-semibold mb-2 leading-tight">
                         Bachelor of Engineering in Information Technology
                       </h3>
-                      <p className="text-muted-foreground mb-2">
+                      <p className="text-muted-foreground mb-2 text-sm sm:text-base">
                         Technological University (Hmawbi)
                       </p>
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 text-sm text-muted-foreground">
                         <span>Expected Graduation: January 2028</span>
-                        <Badge variant="outline" className="text-xs">
+                        <Badge variant="outline" className="text-xs w-fit self-center sm:self-start">
                           In Progress
                         </Badge>
                       </div>
@@ -236,32 +236,32 @@ export default async function PortfolioPage() {
               {/* Experience Section */}
               <section id="experience">
                 <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-3xl font-bold">Experience</h2>
+                  <h2 className="text-2xl sm:text-3xl font-bold">Experience</h2>
                   <Button variant="ghost" size="icon">
                     <Briefcase className="h-5 w-5" />
                   </Button>
                 </div>
-                <Card className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0">
+                <Card className="p-4 sm:p-6">
+                  <div className="flex flex-col sm:flex-row items-start gap-4">
+                    <div className="flex-shrink-0 self-center sm:self-start">
                       <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/20 rounded-full flex items-center justify-center">
                         <Briefcase className="h-6 w-6 text-purple-600 dark:text-purple-400" />
                       </div>
                     </div>
-                    <div className="flex-1">
-                      <div className="flex items-start justify-between mb-2">
-                        <div>
-                          <h3 className="text-xl font-semibold">
+                    <div className="flex-1 w-full">
+                      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 sm:mb-2">
+                        <div className="mb-2 sm:mb-0">
+                          <h3 className="text-lg sm:text-xl font-semibold leading-tight">
                             Code2Career Hackathon 2025
                           </h3>
-                          <p className="text-muted-foreground">MJC – Yangon</p>
+                          <p className="text-muted-foreground text-sm sm:text-base">MJC – Yangon</p>
                         </div>
-                        <div className="text-right">
-                          <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                        <div className="flex flex-col sm:text-right">
+                          <div className="flex items-center gap-1 text-sm text-muted-foreground mb-2">
                             <Calendar className="h-3 w-3" />
                             <span>Feb 2025</span>
                           </div>
-                          <div className="flex flex-col gap-1">
+                          <div className="flex flex-row sm:flex-col gap-3 sm:gap-1">
                             <a
                               href="https://www.youtube.com/watch?v=yrzfl9UrwCo"
                               target="_blank"
@@ -285,40 +285,40 @@ export default async function PortfolioPage() {
                       </div>
                       
                       <div className="mb-4">
-                        <p className="text-muted-foreground mb-3">
+                        <p className="text-muted-foreground mb-3 text-sm sm:text-base leading-relaxed">
                           Collaborated in a fast-paced team to build a logistics ERP web app supporting inventory, orders, deliveries, payments, and 4 user roles using Laravel REST APIs and React, delivering a user-friendly, multi-portal e-commerce system.
                         </p>
                       </div>
 
-                      <div className="space-y-2">
-                        <div className="flex items-start gap-2">
+                      <div className="space-y-3">
+                        <div className="flex items-start gap-3">
                           <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                          <p className="text-sm">
+                          <p className="text-xs sm:text-sm leading-relaxed">
                             Implemented stateless, role-based access control for SPA frontend using Laravel Sanctum and Spatie Permissions, optimized security and scalability through a normalized database schema, ensuring role-restricted user actions
                           </p>
                         </div>
-                        <div className="flex items-start gap-2">
+                        <div className="flex items-start gap-3">
                           <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                          <p className="text-sm">
+                          <p className="text-xs sm:text-sm leading-relaxed">
                             Implemented real-time communication and tracking features using Pusher WebSockets and Laravel Echo, delivering live chat, instant order status updates, and delivery tracking with push notifications to improve customer support
                           </p>
                         </div>
-                        <div className="flex items-start gap-2">
+                        <div className="flex items-start gap-3">
                           <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                          <p className="text-sm">
+                          <p className="text-xs sm:text-sm leading-relaxed">
                             Improved API performance by queuing order status emails with Laravel Queue, reducing response time by ~70%
                           </p>
                         </div>
                       </div>
 
-                      <div className="flex flex-wrap gap-2 mt-4">
-                        <Badge variant="secondary">Laravel</Badge>
-                        <Badge variant="secondary">React</Badge>
-                        <Badge variant="secondary">REST APIs</Badge>
-                        <Badge variant="secondary">Laravel Sanctum</Badge>
-                        <Badge variant="secondary">Pusher WebSockets</Badge>
-                        <Badge variant="secondary">Laravel Queue</Badge>
-                        <Badge variant="secondary">Role-based Access</Badge>
+                      <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-4">
+                        <Badge variant="secondary" className="text-xs">Laravel</Badge>
+                        <Badge variant="secondary" className="text-xs">React</Badge>
+                        <Badge variant="secondary" className="text-xs">REST APIs</Badge>
+                        <Badge variant="secondary" className="text-xs">Laravel Sanctum</Badge>
+                        <Badge variant="secondary" className="text-xs">Pusher WebSockets</Badge>
+                        <Badge variant="secondary" className="text-xs">Laravel Queue</Badge>
+                        <Badge variant="secondary" className="text-xs">Role-based Access</Badge>
                       </div>
                     </div>
                   </div>
@@ -327,13 +327,13 @@ export default async function PortfolioPage() {
 
               {/* Featured Projects Section */}
               <section id="projects">
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-3xl font-bold">Featured Projects</h2>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 sm:mb-6 gap-3">
+                  <h2 className="text-2xl sm:text-3xl font-bold">Featured Projects</h2>
                   <Link href="/projects">
-                    <Button variant="outline">See All Projects</Button>
+                    <Button variant="outline" className="w-full sm:w-auto text-sm">See All Projects</Button>
                   </Link>
                 </div>
-                <div className="grid gap-6 md:grid-cols-2">
+                <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
                   {featuredProjects.length > 0 ? (
                     featuredProjects.map((project) => (
                       <ProjectCard key={project._id} project={project} />
@@ -350,29 +350,29 @@ export default async function PortfolioPage() {
 
               {/* Certifications Section */}
               <section id="certifications">
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-3xl font-bold">Certifications</h2>
+                <div className="flex items-center justify-between mb-4 sm:mb-6">
+                  <h2 className="text-2xl sm:text-3xl font-bold">Certifications</h2>
                   <Button variant="ghost" size="icon">
                     <Award className="h-5 w-5" />
                   </Button>
                 </div>
-                <div className="space-y-4">
-                  <Card className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="flex-shrink-0">
+                <div className="space-y-3 sm:space-y-4">
+                  <Card className="p-4 sm:p-6">
+                    <div className="flex flex-col sm:flex-row items-start gap-4">
+                      <div className="flex-shrink-0 self-center sm:self-start">
                         <div className="w-12 h-12 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center">
                           <Award className="h-6 w-6 text-green-600 dark:text-green-400" />
                         </div>
                       </div>
-                      <div className="flex-1">
-                        <h3 className="text-xl font-semibold mb-2">
+                      <div className="flex-1 text-center sm:text-left">
+                        <h3 className="text-lg sm:text-xl font-semibold mb-2 leading-tight">
                           AWS Certified Solutions Architect - Associate
                         </h3>
-                        <p className="text-muted-foreground mb-2">
+                        <p className="text-muted-foreground mb-2 text-sm sm:text-base">
                           Amazon Web Services
                         </p>
-                        <div className="flex items-center gap-2">
-                          <Badge className="bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400">
+                        <div className="flex flex-col sm:flex-row items-center gap-2">
+                          <Badge className="bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400 text-xs">
                             Certified
                           </Badge>
                           <a
@@ -388,22 +388,22 @@ export default async function PortfolioPage() {
                       </div>
                     </div>
                   </Card>
-                  <Card className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="flex-shrink-0">
+                  <Card className="p-4 sm:p-6">
+                    <div className="flex flex-col sm:flex-row items-start gap-4">
+                      <div className="flex-shrink-0 self-center sm:self-start">
                         <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/20 rounded-full flex items-center justify-center">
                           <Award className="h-6 w-6 text-blue-600 dark:text-blue-400" />
                         </div>
                       </div>
-                      <div className="flex-1">
-                        <h3 className="text-xl font-semibold mb-2">
+                      <div className="flex-1 text-center sm:text-left">
+                        <h3 className="text-lg sm:text-xl font-semibold mb-2 leading-tight">
                           Certified Kubernetes Administrator (CKA)
                         </h3>
-                        <p className="text-muted-foreground mb-2">
+                        <p className="text-muted-foreground mb-2 text-sm sm:text-base">
                           Cloud Native Computing Foundation
                         </p>
-                        <div className="flex items-center gap-2">
-                          <Badge variant="outline" className="text-blue-600 border-blue-600 dark:text-blue-400 dark:border-blue-400">
+                        <div className="flex items-center justify-center sm:justify-start">
+                          <Badge variant="outline" className="text-blue-600 border-blue-600 dark:text-blue-400 dark:border-blue-400 text-xs">
                             In Progress
                           </Badge>
                         </div>
