@@ -1,22 +1,29 @@
-"use client"
+"use client";
 
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
-import rehypeRaw from 'rehype-raw'
-import Image from 'next/image'
-import Link from 'next/link'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { oneDark, oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism'
-import { useTheme } from 'next-themes'
+import React from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
+import Image from "next/image";
+import Link from "next/link";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import {
+  oneDark,
+  oneLight,
+} from "react-syntax-highlighter/dist/esm/styles/prism";
+import { useTheme } from "next-themes";
 
 interface MarkdownRendererProps {
-  content: string
-  className?: string
+  content: string;
+  className?: string;
 }
 
-export default function MarkdownRenderer({ content, className = "" }: MarkdownRendererProps) {
-  const { theme } = useTheme()
-  
+export default function MarkdownRenderer({
+  content,
+  className = "",
+}: MarkdownRendererProps) {
+  const { theme } = useTheme();
+
   return (
     <div className={`prose prose-lg max-w-none ${className}`}>
       <ReactMarkdown
@@ -26,7 +33,11 @@ export default function MarkdownRenderer({ content, className = "" }: MarkdownRe
           // Custom heading renderer with IDs for navigation
           h1: ({ children, ...props }) => (
             <h1
-              id={`heading-${children?.toString().toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '')}`}
+              id={`heading-${children
+                ?.toString()
+                .toLowerCase()
+                .replace(/\s+/g, "-")
+                .replace(/[^\w-]/g, "")}`}
               className="text-4xl font-bold mb-6 mt-10 scroll-mt-8 first:mt-0"
               {...props}
             >
@@ -35,7 +46,11 @@ export default function MarkdownRenderer({ content, className = "" }: MarkdownRe
           ),
           h2: ({ children, ...props }) => (
             <h2
-              id={`heading-${children?.toString().toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '')}`}
+              id={`heading-${children
+                ?.toString()
+                .toLowerCase()
+                .replace(/\s+/g, "-")
+                .replace(/[^\w-]/g, "")}`}
               className="text-3xl font-bold mb-4 mt-8 scroll-mt-8 first:mt-0"
               {...props}
             >
@@ -44,7 +59,11 @@ export default function MarkdownRenderer({ content, className = "" }: MarkdownRe
           ),
           h3: ({ children, ...props }) => (
             <h3
-              id={`heading-${children?.toString().toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '')}`}
+              id={`heading-${children
+                ?.toString()
+                .toLowerCase()
+                .replace(/\s+/g, "-")
+                .replace(/[^\w-]/g, "")}`}
               className="text-2xl font-semibold mb-3 mt-6 scroll-mt-8 first:mt-0"
               {...props}
             >
@@ -53,21 +72,18 @@ export default function MarkdownRenderer({ content, className = "" }: MarkdownRe
           ),
           h4: ({ children, ...props }) => (
             <h4
-              id={`heading-${children?.toString().toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '')}`}
+              id={`heading-${children
+                ?.toString()
+                .toLowerCase()
+                .replace(/\s+/g, "-")
+                .replace(/[^\w-]/g, "")}`}
               className="text-xl font-semibold mb-2 mt-4 scroll-mt-8 first:mt-0"
               {...props}
             >
               {children}
             </h4>
           ),
-          
-          // Custom paragraph renderer
-          p: ({ children, ...props }) => (
-            <p className="mb-4 leading-relaxed text-foreground/90" {...props}>
-              {children}
-            </p>
-          ),
-          
+
           // Custom blockquote renderer
           blockquote: ({ children, ...props }) => (
             <blockquote
@@ -77,29 +93,29 @@ export default function MarkdownRenderer({ content, className = "" }: MarkdownRe
               {children}
             </blockquote>
           ),
-          
+
           // Custom code block renderer with react-syntax-highlighter
           code: ({ children, className, ...props }) => {
-            const match = /language-(\w+)/.exec(className || '')
-            const language = match ? match[1] : 'text'
-            
+            const match = /language-(\w+)/.exec(className || "");
+            const language = match ? match[1] : "text";
+
             if (match) {
               // This is a code block
               return (
                 <div className="my-6">
                   <SyntaxHighlighter
-                    style={theme === 'dark' ? oneDark : oneLight}
+                    style={theme === "dark" ? oneDark : oneLight}
                     language={language}
                     PreTag="div"
                     className="rounded-lg"
                     {...props}
                   >
-                    {String(children).replace(/\n$/, '')}
+                    {String(children).replace(/\n$/, "")}
                   </SyntaxHighlighter>
                 </div>
-              )
+              );
             }
-            
+
             // This is inline code
             return (
               <code
@@ -108,15 +124,15 @@ export default function MarkdownRenderer({ content, className = "" }: MarkdownRe
               >
                 {children}
               </code>
-            )
+            );
           },
-          
+
           // Custom link renderer
           a: ({ href, children, ...props }) => {
-            if (!href) return <span {...props}>{children}</span>
-            
-            const isExternal = href.startsWith('http')
-            
+            if (!href) return <span {...props}>{children}</span>;
+
+            const isExternal = href.startsWith("http");
+
             if (isExternal) {
               return (
                 <a
@@ -128,9 +144,9 @@ export default function MarkdownRenderer({ content, className = "" }: MarkdownRe
                 >
                   {children}
                 </a>
-              )
+              );
             }
-            
+
             return (
               <Link
                 href={href}
@@ -139,33 +155,54 @@ export default function MarkdownRenderer({ content, className = "" }: MarkdownRe
               >
                 {children}
               </Link>
-            )
+            );
           },
-          
+
           // Custom image renderer with Next.js Image
           img: ({ src, alt, ...props }) => {
-            if (!src) return null
-            
+            if (!src) return null;
+
             return (
-              <div className="my-8">
+              <>
                 <Image
                   src={src}
                   alt={alt || ""}
                   width={800}
                   height={400}
-                  className="rounded-lg w-full h-auto"
+                  className="rounded-lg w-full h-auto my-5"
                   loading="lazy"
                   {...props}
                 />
                 {alt && (
-                  <p className="text-sm text-muted-foreground mt-2 text-center italic">
+                  <span className="block text-sm text-muted-foreground mt-2 text-center italic">
                     {alt}
-                  </p>
+                  </span>
                 )}
-              </div>
-            )
+              </>
+            );
           },
-          
+
+          // Custom paragraph renderer to handle images properly
+          p: ({ children, ...props }) => {
+            // Check if this paragraph contains only an img element
+            const childArray = React.Children.toArray(children);
+            const hasOnlyImage =
+              childArray.length === 1 &&
+              React.isValidElement(childArray[0]) &&
+              (childArray[0] as any)?.type === "img";
+
+            if (hasOnlyImage) {
+              // For image-only paragraphs, return the children without paragraph wrapper
+              return <div className="my-8">{children}</div>;
+            }
+
+            return (
+              <p className="mb-4 leading-relaxed text-foreground/90" {...props}>
+                {children}
+              </p>
+            );
+          },
+
           // Custom list renderers
           ul: ({ children, ...props }) => (
             <ul className="mb-4 pl-6 list-disc" {...props}>
@@ -182,7 +219,7 @@ export default function MarkdownRenderer({ content, className = "" }: MarkdownRe
               {children}
             </li>
           ),
-          
+
           // Custom table renderers for better styling
           table: ({ children, ...props }) => (
             <div className="my-6 overflow-x-auto">
@@ -207,7 +244,7 @@ export default function MarkdownRenderer({ content, className = "" }: MarkdownRe
               {children}
             </td>
           ),
-          
+
           // Custom HR renderer
           hr: ({ ...props }) => (
             <hr className="my-8 border-muted-foreground/20" {...props} />
@@ -217,22 +254,27 @@ export default function MarkdownRenderer({ content, className = "" }: MarkdownRe
         {content}
       </ReactMarkdown>
     </div>
-  )
+  );
 }
 
 // Helper function to extract headings from markdown for table of contents
-export function extractHeadingsFromMarkdown(content: string): Array<{ id: string, text: string, level: number }> {
-  const headingRegex = /^(#{1,6})\s+(.+)$/gm
-  const headings: Array<{ id: string, text: string, level: number }> = []
-  let match
-  
+export function extractHeadingsFromMarkdown(
+  content: string
+): Array<{ id: string; text: string; level: number }> {
+  const headingRegex = /^(#{1,6})\s+(.+)$/gm;
+  const headings: Array<{ id: string; text: string; level: number }> = [];
+  let match;
+
   while ((match = headingRegex.exec(content)) !== null) {
-    const level = match[1].length
-    const text = match[2].trim()
-    const id = `heading-${text.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '')}`
-    
-    headings.push({ id, text, level })
+    const level = match[1].length;
+    const text = match[2].trim();
+    const id = `heading-${text
+      .toLowerCase()
+      .replace(/\s+/g, "-")
+      .replace(/[^\w-]/g, "")}`;
+
+    headings.push({ id, text, level });
   }
-  
-  return headings
+
+  return headings;
 }
