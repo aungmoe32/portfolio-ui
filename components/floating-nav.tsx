@@ -30,6 +30,7 @@ export default function FloatingNav() {
         "education",
         "experience",
         "projects",
+        "blog",
         "certifications",
       ];
       const current = sections.find((section) => {
@@ -166,6 +167,18 @@ export default function FloatingNav() {
                   size="sm"
                   className={cn(
                     "rounded-full transition-colors",
+                    activeSection === "blog" &&
+                      "bg-accent text-accent-foreground"
+                  )}
+                  onClick={() => scrollToSection("blog")}
+                >
+                  Blog
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className={cn(
+                    "rounded-full transition-colors",
                     activeSection === "certifications" &&
                       "bg-accent text-accent-foreground"
                   )}
@@ -292,6 +305,17 @@ export default function FloatingNav() {
                     Projects
                   </Button>
                 </Link>
+                <Button
+                  variant="ghost"
+                  className={cn(
+                    "w-full justify-start text-left h-12 px-4 rounded-none",
+                    activeSection === "blog" &&
+                      "bg-accent text-accent-foreground"
+                  )}
+                  onClick={() => scrollToSection("blog")}
+                >
+                  Blog
+                </Button>
                 <Button
                   variant="ghost"
                   className={cn(

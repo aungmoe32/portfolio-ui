@@ -73,6 +73,14 @@ export default async function Footer() {
               </li>
               <li>
                 <a
+                  href="/blog"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Blog
+                </a>
+              </li>
+              <li>
+                <a
                   href="/#certifications"
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >

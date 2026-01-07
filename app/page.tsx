@@ -12,6 +12,8 @@ import {
   Briefcase,
   Calendar,
   PlayCircle,
+  BookOpen,
+  ArrowRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -19,10 +21,11 @@ import { Badge } from "@/components/ui/badge";
 import FloatingNav from "@/components/floating-nav";
 import Footer from "@/components/footer";
 import Link from "next/link";
-import { getFeaturedProjects } from "@/lib/sanity-queries";
+import { getFeaturedProjects, getFeaturedBlogs } from "@/lib/sanity-queries";
 import { getAboutData, getSocialLinkInfo } from "@/lib/about-queries";
 import { ProjectDisplay } from "@/types/project";
 import PortableTextRenderer from "@/components/portable-text";
+import BlogCard from "@/components/blog-card";
 
 // Helper function to get icon component based on platform
 function getIconComponent(iconName: string) {
@@ -37,9 +40,10 @@ function getIconComponent(iconName: string) {
 }
 
 export default async function PortfolioPage() {
-  // Fetch featured projects and about data on the server
-  const [featuredProjects, aboutData] = await Promise.all([
+  // Fetch featured projects, featured blogs, and about data on the server
+  const [featuredProjects, featuredBlogs, aboutData] = await Promise.all([
     getFeaturedProjects(),
+    getFeaturedBlogs(),
     getAboutData(),
   ]);
 
@@ -346,6 +350,50 @@ export default async function PortfolioPage() {
                     </div>
                   )}
                 </div>
+              </section>
+
+              {/* Featured Blog Posts Section */}
+              <section id="blog">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 sm:mb-6 gap-3">
+                  <h2 className="text-2xl sm:text-3xl font-bold">Latest Blog Posts</h2>
+                  <Link href="/blog">
+                    <Button variant="outline" className="w-full sm:w-auto text-sm">
+                      <BookOpen className="mr-2 h-4 w-4" />
+                      View All Posts
+                    </Button>
+                  </Link>
+                </div>
+                
+                {featuredBlogs.length > 0 ? (
+                  <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
+                    {featuredBlogs.slice(0, 4).map((blog) => (
+                      <BlogCard
+                        key={blog._id}
+                        _id={blog._id}
+                        title={blog.title}
+                        excerpt={blog.excerpt}
+                        slug={blog.slug}
+                        publishedAt={blog.publishedAt}
+                        tags={blog.tags}
+                        imageUrl={blog.imageUrl}
+                        category={blog.category}
+                        author={blog.author}
+                        likeCount={blog.likeCount}
+                        isFeatured={blog.isFeatured}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-8">
+                    <div className="inline-flex items-center justify-center w-16 h-16 bg-muted/50 rounded-full mb-4">
+                      <BookOpen className="h-8 w-8 text-muted-foreground" />
+                    </div>
+                    <h3 className="text-lg font-medium mb-2">No blog posts yet</h3>
+                    <p className="text-muted-foreground">
+                      Check back soon for insights and tutorials!
+                    </p>
+                  </div>
+                )}
               </section>
 
               {/* Certifications Section */}
