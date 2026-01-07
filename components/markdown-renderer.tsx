@@ -2,12 +2,12 @@
 
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import rehypeHighlight from 'rehype-highlight'
 import rehypeRaw from 'rehype-raw'
-import { Badge } from "@/components/ui/badge"
 import Image from 'next/image'
 import Link from 'next/link'
-// Note: You may want to import highlight.js styles in your global CSS instead
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { oneDark, oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism'
+import { useTheme } from 'next-themes'
 
 interface MarkdownRendererProps {
   content: string
@@ -15,11 +15,13 @@ interface MarkdownRendererProps {
 }
 
 export default function MarkdownRenderer({ content, className = "" }: MarkdownRendererProps) {
+  const { theme } = useTheme()
+  
   return (
     <div className={`prose prose-lg max-w-none ${className}`}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
-        rehypePlugins={[rehypeHighlight, rehypeRaw]}
+        rehypePlugins={[rehypeRaw]}
         components={{
           // Custom heading renderer with IDs for navigation
           h1: ({ children, ...props }) => (
@@ -76,25 +78,26 @@ export default function MarkdownRenderer({ content, className = "" }: MarkdownRe
             </blockquote>
           ),
           
-          // Custom code block renderer
-          pre: ({ children, ...props }) => (
-            <div className="my-6">
-              <pre
-                className="bg-muted p-4 rounded-lg overflow-x-auto"
-                {...props}
-              >
-                {children}
-              </pre>
-            </div>
-          ),
-          
-          // Inline code renderer
+          // Custom code block renderer with react-syntax-highlighter
           code: ({ children, className, ...props }) => {
             const match = /language-(\w+)/.exec(className || '')
+            const language = match ? match[1] : 'text'
             
             if (match) {
-              // This is a code block, let pre handle it
-              return <code className={className} {...props}>{children}</code>
+              // This is a code block
+              return (
+                <div className="my-6">
+                  <SyntaxHighlighter
+                    style={theme === 'dark' ? oneDark : oneLight}
+                    language={language}
+                    PreTag="div"
+                    className="rounded-lg"
+                    {...props}
+                  >
+                    {String(children).replace(/\n$/, '')}
+                  </SyntaxHighlighter>
+                </div>
+              )
             }
             
             // This is inline code
