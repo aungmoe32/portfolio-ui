@@ -1,43 +1,43 @@
-import { Calendar, Clock, Heart, Star } from "lucide-react"
-import { Card } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import Link from "next/link"
-import Image from "next/image"
+import { Calendar, Clock, Heart, Star } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
+import Image from "next/image";
 
 interface BlogCardProps {
-  _id: string
-  title: string
-  excerpt: string
-  slug: string
-  publishedAt?: string
-  tags: string[]
-  imageUrl?: string
-  category: string
-  author?: string
-  likeCount: number
-  isFeatured: boolean
+  _id: string;
+  title: string;
+  excerpt: string;
+  slug: string;
+  publishedAt?: string;
+  tags: string[];
+  imageUrl?: string;
+  category: string;
+  author?: string;
+  likeCount: number;
+  isFeatured: boolean;
 }
 
 // Calculate estimated reading time based on content length
 function calculateReadTime(text: string): string {
   const wordsPerMinute = 200;
-  const words = text.split(' ').length;
+  const words = text.split(" ").length;
   const minutes = Math.ceil(words / wordsPerMinute);
   return `${minutes} min read`;
 }
 
-export default function BlogCard({ 
+export default function BlogCard({
   _id,
-  title, 
-  excerpt, 
+  title,
+  excerpt,
   slug,
   publishedAt,
-  tags, 
+  tags,
   imageUrl,
   category,
   author,
   likeCount,
-  isFeatured
+  isFeatured,
 }: BlogCardProps) {
   const readTime = calculateReadTime(excerpt);
   const displayDate = publishedAt || new Date().toISOString();
@@ -46,14 +46,14 @@ export default function BlogCard({
     <Link href={`/blog/${slug}`}>
       <Card className="h-full p-6 hover:shadow-lg transition-all cursor-pointer group overflow-hidden">
         {/* Featured Badge */}
-        {isFeatured && (
+        {/* {isFeatured && (
           <div className="absolute top-4 right-4 z-10">
             <Badge variant="default" className="bg-yellow-500 text-yellow-900 hover:bg-yellow-600">
               <Star className="h-3 w-3 mr-1" />
               Featured
             </Badge>
           </div>
-        )}
+        )} */}
 
         {/* Featured Image */}
         {imageUrl && (
@@ -71,7 +71,7 @@ export default function BlogCard({
         {/* Category Badge */}
         <div className="mb-3">
           <Badge variant="outline" className="text-xs capitalize">
-            {category.replace('-', ' ')}
+            {category.replace("-", " ")}
           </Badge>
         </div>
 
@@ -79,11 +79,13 @@ export default function BlogCard({
         <div className="flex items-center gap-4 text-xs text-muted-foreground mb-3">
           <div className="flex items-center gap-1">
             <Calendar className="h-3 w-3" />
-            <span>{new Date(displayDate).toLocaleDateString("en-US", { 
-              month: "short", 
-              day: "numeric", 
-              year: "numeric" 
-            })}</span>
+            <span>
+              {new Date(displayDate).toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+                year: "numeric",
+              })}
+            </span>
           </div>
           <div className="flex items-center gap-1">
             <Clock className="h-3 w-3" />
@@ -109,9 +111,7 @@ export default function BlogCard({
 
         {/* Author */}
         {author && (
-          <p className="text-xs text-muted-foreground mb-3">
-            By {author}
-          </p>
+          <p className="text-xs text-muted-foreground mb-3">By {author}</p>
         )}
 
         {/* Tags */}
@@ -129,5 +129,5 @@ export default function BlogCard({
         </div>
       </Card>
     </Link>
-  )
+  );
 }
