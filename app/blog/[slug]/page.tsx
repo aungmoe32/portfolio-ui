@@ -9,6 +9,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { ArrowLeft, Calendar, Clock, Heart, Share } from "lucide-react";
 import BlogPageClient from "@/components/blog-page-client";
 import MarkdownRenderer from "@/components/markdown-renderer";
+import LikeButton from "@/components/like-button";
 
 interface BlogPageProps {
   params: Promise<{ slug: string }>;
@@ -147,10 +148,12 @@ async function BlogContent({ params }: BlogPageProps) {
             <footer className="pt-8 border-t">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <Button variant="outline" size="sm">
-                    <Heart className="h-4 w-4 mr-2" />
-                    Like ({blog.likeCount})
-                  </Button>
+                  <LikeButton 
+                    blogId={blog._id}
+                    initialLikeCount={blog.likeCount}
+                    variant="outline"
+                    size="sm"
+                  />
                   <Button variant="outline" size="sm">
                     <Share className="h-4 w-4 mr-2" />
                     Share

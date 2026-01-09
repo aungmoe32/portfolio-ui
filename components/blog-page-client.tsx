@@ -58,6 +58,8 @@ function TableOfContents({ content, activeId }: { content: string, activeId: str
 export default function BlogPageClient({ content, likeCount, blog, readTime, displayDate }: BlogPageClientProps) {
   const [activeHeading, setActiveHeading] = useState('')
   const [currentLikeCount, setCurrentLikeCount] = useState(likeCount)
+  const [isLiking, setIsLiking] = useState(false)
+  const [hasLiked, setHasLiked] = useState(false)
 
   // Scroll spy for table of contents
   useEffect(() => {
@@ -78,10 +80,49 @@ export default function BlogPageClient({ content, likeCount, blog, readTime, dis
     return () => observer.disconnect()
   }, [])
 
-  const handleLike = () => {
-    // Optimistic update
-    setCurrentLikeCount(prev => prev + 1)
-    // Here you would typically make an API call to update the like count
+  const handleLike = async () => {
+    if (isLiking || hasLiked) return
+    
+    setIsLiking(true)
+    
+    try {
+      // Optimistic update
+      setCurrentLikeCount(prev => prev + 1)
+      setHasLiked(true)
+      
+      // Call API to update like count in database
+      const response = await fetch(`/api/blog/${blog._id}/like`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      
+      if (!response.ok) {
+        throw new Error('Failed to update like count')
+      }
+      
+      const data = await response.json()
+      
+      if (data.success) {
+        // Update with the actual count from server
+        setCurrentLikeCount(data.likeCount)
+      } else {
+        throw new Error(data.error || 'Failed to update like count')
+      }
+      
+    } catch (error) {
+      console.error('Error liking post:', error)
+      
+      // Revert optimistic update on error
+      setCurrentLikeCount(prev => prev - 1)
+      setHasLiked(false)
+      
+      // You could show a toast notification here
+      alert('Failed to like the post. Please try again.')
+    } finally {
+      setIsLiking(false)
+    }
   }
 
   const handleShare = () => {
@@ -146,13 +187,18 @@ export default function BlogPageClient({ content, likeCount, blog, readTime, dis
           <h3 className="font-semibold text-sm mb-4">Quick Actions</h3>
           <div className="space-y-3">
             <Button 
-              variant="outline" 
+              variant={hasLiked ? "default" : "outline"} 
               size="sm" 
-              className="w-full justify-start"
+              className="w-full justify-start transition-colors"
               onClick={handleLike}
+              disabled={isLiking}
             >
-              <Heart className="h-4 w-4 mr-2" />
-              Like ({currentLikeCount})
+              <Heart 
+                className={`h-4 w-4 mr-2 transition-colors ${
+                  hasLiked ? 'fill-current text-red-500' : ''
+                } ${isLiking ? 'animate-pulse' : ''}`} 
+              />
+              {isLiking ? 'Liking...' : hasLiked ? 'Liked' : 'Like'} ({currentLikeCount})
             </Button>
             <Button 
               variant="outline" 
