@@ -227,8 +227,11 @@ export default async function PortfolioPage() {
                         Technological University (Hmawbi)
                       </p>
                       <div className="flex flex-col sm:flex-row sm:items-center gap-2 text-sm text-muted-foreground">
-                        <span>Expected Graduation: January 2028</span>
-                        <Badge variant="outline" className="text-xs w-fit self-center sm:self-start">
+                        <span>Expected Graduation: January 2027</span>
+                        <Badge
+                          variant="outline"
+                          className="text-xs w-fit self-center sm:self-start"
+                        >
                           In Progress
                         </Badge>
                       </div>
@@ -258,7 +261,9 @@ export default async function PortfolioPage() {
                           <h3 className="text-lg sm:text-xl font-semibold leading-tight">
                             Code2Career Hackathon 2025
                           </h3>
-                          <p className="text-muted-foreground text-sm sm:text-base">MJC – Yangon</p>
+                          <p className="text-muted-foreground text-sm sm:text-base">
+                            MJC – Yangon
+                          </p>
                         </div>
                         <div className="flex flex-col sm:text-right">
                           <div className="flex items-center gap-1 text-sm text-muted-foreground mb-2">
@@ -287,10 +292,14 @@ export default async function PortfolioPage() {
                           </div>
                         </div>
                       </div>
-                      
+
                       <div className="mb-4">
                         <p className="text-muted-foreground mb-3 text-sm sm:text-base leading-relaxed">
-                          Collaborated in a fast-paced team to build a logistics ERP web app supporting inventory, orders, deliveries, payments, and 4 user roles using Laravel REST APIs and React, delivering a user-friendly, multi-portal e-commerce system.
+                          Collaborated in a fast-paced team to build a logistics
+                          ERP web app supporting inventory, orders, deliveries,
+                          payments, and 4 user roles using Laravel REST APIs and
+                          React, delivering a user-friendly, multi-portal
+                          e-commerce system.
                         </p>
                       </div>
 
@@ -298,31 +307,55 @@ export default async function PortfolioPage() {
                         <div className="flex items-start gap-3">
                           <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
                           <p className="text-xs sm:text-sm leading-relaxed">
-                            Implemented stateless, role-based access control for SPA frontend using Laravel Sanctum and Spatie Permissions, optimized security and scalability through a normalized database schema, ensuring role-restricted user actions
+                            Implemented stateless, role-based access control for
+                            SPA frontend using Laravel Sanctum and Spatie
+                            Permissions, optimized security and scalability
+                            through a normalized database schema, ensuring
+                            role-restricted user actions
                           </p>
                         </div>
                         <div className="flex items-start gap-3">
                           <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
                           <p className="text-xs sm:text-sm leading-relaxed">
-                            Implemented real-time communication and tracking features using Pusher WebSockets and Laravel Echo, delivering live chat, instant order status updates, and delivery tracking with push notifications to improve customer support
+                            Implemented real-time communication and tracking
+                            features using Pusher WebSockets and Laravel Echo,
+                            delivering live chat, instant order status updates,
+                            and delivery tracking with push notifications to
+                            improve customer support
                           </p>
                         </div>
                         <div className="flex items-start gap-3">
                           <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
                           <p className="text-xs sm:text-sm leading-relaxed">
-                            Improved API performance by queuing order status emails with Laravel Queue, reducing response time by ~70%
+                            Improved API performance by queuing order status
+                            emails with Laravel Queue, reducing response time by
+                            ~70%
                           </p>
                         </div>
                       </div>
 
                       <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-4">
-                        <Badge variant="secondary" className="text-xs">Laravel</Badge>
-                        <Badge variant="secondary" className="text-xs">React</Badge>
-                        <Badge variant="secondary" className="text-xs">REST APIs</Badge>
-                        <Badge variant="secondary" className="text-xs">Laravel Sanctum</Badge>
-                        <Badge variant="secondary" className="text-xs">Pusher WebSockets</Badge>
-                        <Badge variant="secondary" className="text-xs">Laravel Queue</Badge>
-                        <Badge variant="secondary" className="text-xs">Role-based Access</Badge>
+                        <Badge variant="secondary" className="text-xs">
+                          Laravel
+                        </Badge>
+                        <Badge variant="secondary" className="text-xs">
+                          React
+                        </Badge>
+                        <Badge variant="secondary" className="text-xs">
+                          REST APIs
+                        </Badge>
+                        <Badge variant="secondary" className="text-xs">
+                          Laravel Sanctum
+                        </Badge>
+                        <Badge variant="secondary" className="text-xs">
+                          Pusher WebSockets
+                        </Badge>
+                        <Badge variant="secondary" className="text-xs">
+                          Laravel Queue
+                        </Badge>
+                        <Badge variant="secondary" className="text-xs">
+                          Role-based Access
+                        </Badge>
                       </div>
                     </div>
                   </div>
@@ -332,9 +365,16 @@ export default async function PortfolioPage() {
               {/* Featured Projects Section */}
               <section id="projects">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 sm:mb-6 gap-3">
-                  <h2 className="text-2xl sm:text-3xl font-bold">Featured Projects</h2>
+                  <h2 className="text-2xl sm:text-3xl font-bold">
+                    Featured Projects
+                  </h2>
                   <Link href="/projects">
-                    <Button variant="outline" className="w-full sm:w-auto text-sm">See All Projects</Button>
+                    <Button
+                      variant="outline"
+                      className="w-full sm:w-auto text-sm"
+                    >
+                      See All Projects
+                    </Button>
                   </Link>
                 </div>
                 <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
@@ -355,15 +395,20 @@ export default async function PortfolioPage() {
               {/* Featured Blog Posts Section */}
               <section id="blog">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 sm:mb-6 gap-3">
-                  <h2 className="text-2xl sm:text-3xl font-bold">Latest Blog Posts</h2>
+                  <h2 className="text-2xl sm:text-3xl font-bold">
+                    Latest Blog Posts
+                  </h2>
                   <Link href="/blog">
-                    <Button variant="outline" className="w-full sm:w-auto text-sm">
+                    <Button
+                      variant="outline"
+                      className="w-full sm:w-auto text-sm"
+                    >
                       <BookOpen className="mr-2 h-4 w-4" />
                       View All Posts
                     </Button>
                   </Link>
                 </div>
-                
+
                 {featuredBlogs.length > 0 ? (
                   <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
                     {featuredBlogs.slice(0, 4).map((blog) => (
@@ -388,7 +433,9 @@ export default async function PortfolioPage() {
                     <div className="inline-flex items-center justify-center w-16 h-16 bg-muted/50 rounded-full mb-4">
                       <BookOpen className="h-8 w-8 text-muted-foreground" />
                     </div>
-                    <h3 className="text-lg font-medium mb-2">No blog posts yet</h3>
+                    <h3 className="text-lg font-medium mb-2">
+                      No blog posts yet
+                    </h3>
                     <p className="text-muted-foreground">
                       Check back soon for insights and tutorials!
                     </p>
@@ -399,7 +446,9 @@ export default async function PortfolioPage() {
               {/* Certifications Section */}
               <section id="certifications">
                 <div className="flex items-center justify-between mb-4 sm:mb-6">
-                  <h2 className="text-2xl sm:text-3xl font-bold">Certifications</h2>
+                  <h2 className="text-2xl sm:text-3xl font-bold">
+                    Certifications
+                  </h2>
                   <Button variant="ghost" size="icon">
                     <Award className="h-5 w-5" />
                   </Button>
@@ -451,7 +500,10 @@ export default async function PortfolioPage() {
                           Cloud Native Computing Foundation
                         </p>
                         <div className="flex items-center justify-center sm:justify-start">
-                          <Badge variant="outline" className="text-blue-600 border-blue-600 dark:text-blue-400 dark:border-blue-400 text-xs">
+                          <Badge
+                            variant="outline"
+                            className="text-blue-600 border-blue-600 dark:text-blue-400 dark:border-blue-400 text-xs"
+                          >
                             In Progress
                           </Badge>
                         </div>
