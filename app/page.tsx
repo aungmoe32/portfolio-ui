@@ -227,7 +227,7 @@ export default async function PortfolioPage() {
                         Technological University (Hmawbi)
                       </p>
                       <div className="flex flex-col sm:flex-row sm:items-center gap-2 text-sm text-muted-foreground">
-                        <span>Expected Graduation: January 2027</span>
+                        <span>Expected Graduation: December 2027</span>
                         <Badge
                           variant="outline"
                           className="text-xs w-fit self-center sm:self-start"
