@@ -221,13 +221,13 @@ export default async function PortfolioPage() {
                     </div>
                     <div className="flex-1 text-center sm:text-left">
                       <h3 className="text-lg sm:text-xl font-semibold mb-2 leading-tight">
-                        Bachelor of Engineering in Information Technology
+                        B.E. in Information Technology
                       </h3>
                       <p className="text-muted-foreground mb-2 text-sm sm:text-base">
                         Technological University (Hmawbi)
                       </p>
                       <div className="flex flex-col sm:flex-row sm:items-center gap-2 text-sm text-muted-foreground">
-                        <span>Expected Graduation: December 2027</span>
+                        <span>Expected Sep 2028</span>
                         <Badge
                           variant="outline"
                           className="text-xs w-fit self-center sm:self-start"
@@ -248,6 +248,57 @@ export default async function PortfolioPage() {
                     <Briefcase className="h-5 w-5" />
                   </Button>
                 </div>
+                {/* Pico Innovation */}
+                <Card className="p-4 sm:p-6">
+                  <div className="flex flex-col sm:flex-row items-start gap-4">
+                    <div className="flex-shrink-0 self-center sm:self-start">
+                      <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/20 rounded-full flex items-center justify-center">
+                        <Briefcase className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+                      </div>
+                    </div>
+                    <div className="flex-1 w-full">
+                      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3 sm:mb-2">
+                        <div className="mb-2 sm:mb-0">
+                          <h3 className="text-lg sm:text-xl font-semibold leading-tight">
+                            Full-Stack Developer
+                          </h3>
+                          <p className="text-muted-foreground text-sm sm:text-base">
+                            Pico Innovation – Remote
+                          </p>
+                        </div>
+                        <div className="flex flex-col sm:text-right">
+                          <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                            <Calendar className="h-3 w-3" />
+                            <span>Jan 2026 – Apr 2026</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="space-y-3 mb-4">
+                        {[
+                          "Implemented a scalable multi-tenant SaaS architecture supporting 50+ isolated tenants using Laravel with automated database isolation managed from a centralized admin dashboard.",
+                          "Designed an extensible plug-and-play modular architecture using laravel-modules, allowing tenants to dynamically manage features without bloating the core codebase.",
+                          "Integrated Cloudflare for SaaS and Nginx reverse proxy to automate SSL, custom hostname provisioning, and canonical redirects — reducing tenant onboarding from hours to minutes.",
+                          "Containerized the infrastructure with Docker and deployed to GCP via automated scripts, enforcing HTTPS, HSTS, and hardened firewall/SSH access.",
+                          "Architected an internal PaaS using Next.js 15, TypeScript, and Drizzle ORM integrating Dokploy and GitHub APIs for infrastructure provisioning and automated CNAME/HTTPS routing.",
+                        ].map((point, i) => (
+                          <div key={i} className="flex items-start gap-3">
+                            <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                            <p className="text-xs sm:text-sm leading-relaxed">{point}</p>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                        {["Laravel", "Next.js 15", "TypeScript", "Docker", "GCP", "Cloudflare", "Nginx", "Drizzle ORM", "Multi-tenant SaaS"].map((t) => (
+                          <Badge key={t} variant="secondary" className="text-xs">{t}</Badge>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+
+                {/* Code2Career Hackathon */}
                 <Card className="p-4 sm:p-6">
                   <div className="flex flex-col sm:flex-row items-start gap-4">
                     <div className="flex-shrink-0 self-center sm:self-start">
@@ -293,69 +344,23 @@ export default async function PortfolioPage() {
                         </div>
                       </div>
 
-                      <div className="mb-4">
-                        <p className="text-muted-foreground mb-3 text-sm sm:text-base leading-relaxed">
-                          Collaborated in a fast-paced team to build a logistics
-                          ERP web app supporting inventory, orders, deliveries,
-                          payments, and 4 user roles using Laravel REST APIs and
-                          React, delivering a user-friendly, multi-portal
-                          e-commerce system.
-                        </p>
+                      <div className="space-y-3 mb-4">
+                        {[
+                          "Built a logistics ERP web app supporting inventory, orders, deliveries, payments, and 4 user roles using Laravel REST APIs and React.",
+                          "Implemented stateless role-based access control using Laravel Sanctum and Spatie Permissions with a normalized database schema.",
+                          "Built real-time features using Pusher WebSockets and Laravel Echo — live chat, order status updates, and delivery tracking.",
+                        ].map((point, i) => (
+                          <div key={i} className="flex items-start gap-3">
+                            <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                            <p className="text-xs sm:text-sm leading-relaxed">{point}</p>
+                          </div>
+                        ))}
                       </div>
 
-                      <div className="space-y-3">
-                        <div className="flex items-start gap-3">
-                          <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                          <p className="text-xs sm:text-sm leading-relaxed">
-                            Implemented stateless, role-based access control for
-                            SPA frontend using Laravel Sanctum and Spatie
-                            Permissions, optimized security and scalability
-                            through a normalized database schema, ensuring
-                            role-restricted user actions
-                          </p>
-                        </div>
-                        <div className="flex items-start gap-3">
-                          <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                          <p className="text-xs sm:text-sm leading-relaxed">
-                            Implemented real-time communication and tracking
-                            features using Pusher WebSockets and Laravel Echo,
-                            delivering live chat, instant order status updates,
-                            and delivery tracking with push notifications to
-                            improve customer support
-                          </p>
-                        </div>
-                        <div className="flex items-start gap-3">
-                          <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                          <p className="text-xs sm:text-sm leading-relaxed">
-                            Improved API performance by queuing order status
-                            emails with Laravel Queue, reducing response time by
-                            ~70%
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-4">
-                        <Badge variant="secondary" className="text-xs">
-                          Laravel
-                        </Badge>
-                        <Badge variant="secondary" className="text-xs">
-                          React
-                        </Badge>
-                        <Badge variant="secondary" className="text-xs">
-                          REST APIs
-                        </Badge>
-                        <Badge variant="secondary" className="text-xs">
-                          Laravel Sanctum
-                        </Badge>
-                        <Badge variant="secondary" className="text-xs">
-                          Pusher WebSockets
-                        </Badge>
-                        <Badge variant="secondary" className="text-xs">
-                          Laravel Queue
-                        </Badge>
-                        <Badge variant="secondary" className="text-xs">
-                          Role-based Access
-                        </Badge>
+                      <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                        {["Laravel", "React", "REST APIs", "Laravel Sanctum", "Pusher WebSockets", "Role-based Access"].map((t) => (
+                          <Badge key={t} variant="secondary" className="text-xs">{t}</Badge>
+                        ))}
                       </div>
                     </div>
                   </div>
