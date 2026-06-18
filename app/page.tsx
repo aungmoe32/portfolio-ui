@@ -248,6 +248,7 @@ export default async function PortfolioPage() {
                     <Briefcase className="h-5 w-5" />
                   </Button>
                 </div>
+                <div className="space-y-6">
                 {/* Pico Innovation */}
                 <Card className="p-4 sm:p-6">
                   <div className="flex flex-col sm:flex-row items-start gap-4">
@@ -365,6 +366,7 @@ export default async function PortfolioPage() {
                     </div>
                   </div>
                 </Card>
+                </div>
               </section>
 
               {/* Featured Projects Section */}
